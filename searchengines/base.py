@@ -14,7 +14,7 @@ class Base:
         "common_options"
     ]
 
-    HAS_COLUMN_INFO = re.compile('^[^:]+:\d+:\d+:')
+    RE_LINE_NO = re.compile(":(\d+):")
 
     def __init__(self, settings):
         """
@@ -56,12 +56,22 @@ class Base:
 
     def _parse_output(self, output):
         lines = output.split("\n")
-        line_parts = [line.split(":", 3) if Base.HAS_COLUMN_INFO.match(line) else line.split(":", 2) for line in lines]
-        line_parts = self._filter_lines_without_matches(line_parts)
-        return [(":".join(line[0:-1]), line[-1].strip()) for line in line_parts]
+        line_parts = [ self._pase_line(line)   for line in lines if self._pase_line(line)[0] ]
+        return line_parts
+
+    def _pase_line(self,line):
+        lineno = Base.RE_LINE_NO.findall(line);
+        
+        if len(lineno)==0:
+            return None,None
+        lineno = lineno[0];
+        index = line.find(lineno);
+        filename = line[0:index-1]
+        lineinfo = line[index:]
+        return (filename,lineinfo)
 
     def _full_settings_name(self, name):
         return "search_in_project_%s_%s" % (self.__class__.__name__, name)
 
     def _filter_lines_without_matches(self, line_parts):
-        return filter(lambda line: len(line) > 2, line_parts)
+        return filter(lambda line: len(line) >= 2, line_parts)

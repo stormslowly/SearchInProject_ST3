@@ -1,10 +1,13 @@
 {
   /* Use findstr on Windows, because it's built-in */
   "search_in_project_engine": "find_str"
-  // "search_in_project_engine": "grep",
-  // "search_in_project_Grep_path_to_executable": "grep",
-  //  Do NOT change these options; they are expected to be present for SearchInProject to work correctly. 
-  // "search_in_project_Grep_mandatory_options": "-nr",
-  // /* Specify additional options to be used with all searches here. */
-  // "search_in_project_Grep_common_options": ""
+  
+  /* if you have grep installed in windows please comment above
+      and use below settings */
+  //"search_in_project_engine": "grep",
+  //"search_in_project_Grep_path_to_executable": "grep",
+  // Do NOT change these options; they are expected to be present for SearchInProject to work correctly. 
+  //"search_in_project_Grep_mandatory_options": "-nr",
+  /* Specify additional options to be used with all searches here. */
+  //"search_in_project_Grep_common_options": "--exclude-dir=.svn --exclude-dir=.git"
 }

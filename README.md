@@ -1,6 +1,7 @@
-# Search In Project v1.1.0
-
-A plugin for [Sublime Text 2](http://www.sublimetext.com/).
+# Search In Project for Sublime Text3 v1.0
+###A plugin for [Sublime Text 3](http://www.sublimetext.com/3).
+###it fork from [SearchInProject_SublimeText2](https://github.com/leonid-shevtsov/SearchInProject_SublimeText2)
+thanks a lot [Leonid Shevtsov](http://leonid.shevtsov.me) for learning a lot from you
 
 ## Synopsis
 
@@ -33,5 +34,7 @@ found in the main menu in `Preferences -> Package Settings -> Search In Project`
 On any OS I recommend you to install [ack](http://betterthangrep.com/), and use it instead of the default `grep`/`findstr`, because it's much faster. [Here's how to install ack on Windows](http://stackoverflow.com/questions/1023710/how-can-i-install-and-use-ack-library-on-windows).
 
 * * *
-
-Made by [Leonid Shevtsov](http://leonid.shevtsov.me)
+## Change log
+### 2013-2-23
+* add function that goto the line where you select from the panle
+* make it compatiable with sublime text 2

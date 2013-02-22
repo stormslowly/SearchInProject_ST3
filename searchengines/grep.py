@@ -1,4 +1,4 @@
-from Data.Packages.SearchInProject_ST3.searchengines import base
+from SearchInProject_ST3.searchengines import base
 
 
 class Grep (base.Base):
