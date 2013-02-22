@@ -1,9 +1,9 @@
 import sublime
 import sublime_plugin
 import os.path
-import searchengines
+from Data.Packages.SearchInProject_ST3 import searchengines
 
-basedir = os.getcwdu()
+basedir = os.getcwd()
 
 
 class SearchInProjectCommand(sublime_plugin.WindowCommand):
@@ -15,9 +15,9 @@ class SearchInProjectCommand(sublime_plugin.WindowCommand):
     def run(self):
         self.settings = sublime.load_settings('SearchInProject.sublime-settings')
         self.engine_name = self.settings.get("search_in_project_engine")
-        pushd = os.getcwdu()
+        pushd = os.getcwd()
         os.chdir(basedir)
-        __import__("searchengines.%s" % self.engine_name)
+        __import__("Data.Packages.SearchInProject_ST3.searchengines.%s" % self.engine_name)
         self.engine = searchengines.__dict__[self.engine_name].engine_class(self.settings)
         os.chdir(pushd)
         view = self.window.active_view()
@@ -34,6 +34,7 @@ class SearchInProjectCommand(sublime_plugin.WindowCommand):
 
         self.common_path = self.find_common_path(folders)
         self.results = self.engine.run(text, folders)
+
         if self.results:
             self.results = [[result[0].replace(self.common_path, ''), result[1]] for result in self.results]
             self.window.show_quick_panel(self.results, self.goto_result)
@@ -44,9 +45,11 @@ class SearchInProjectCommand(sublime_plugin.WindowCommand):
     def goto_result(self, file_no):
         if file_no != -1:
             file_name = self.common_path + self.results[file_no][0]
+            line_no = int( self.results[file_no][1].split(":")[0] ) 
             view = self.window.open_file(file_name, sublime.ENCODED_POSITION)
             regions = view.find_all(self.last_search_string)
             view.add_regions("search_in_project", regions, "entity.name.filename.find-in-files", "circle", sublime.DRAW_OUTLINED)
+            view.run_command("goto_line",{"line": line_no})
 
     def search_folders(self):
         return self.window.folders() or [os.path.dirname(self.window.active_view().file_name())]

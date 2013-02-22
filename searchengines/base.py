@@ -35,7 +35,8 @@ class Base:
         print("Running: %s" % command_line)
         pipe = subprocess.Popen(command_line, shell=True, stdout=subprocess.PIPE)
         output, error = pipe.communicate()
-        if pipe.returncode != 0:
+        if error:
+            print("error code is ",error)
             return None
         return self._parse_output(self._sanitize_output(output).strip())
 
@@ -48,10 +49,10 @@ class Base:
             self.mandatory_options,
             self.common_options,
             query
-            ] + folders)
+            ] + [("\"" + f + "\"") for f in folders ] )
 
     def _sanitize_output(self, output):
-        return unicode(output, errors='replace')
+        return str(output, errors='replace')
 
     def _parse_output(self, output):
         lines = output.split("\n")
