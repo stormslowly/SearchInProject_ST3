@@ -1,4 +1,12 @@
+
+## try the sublime text native find in files. "Find" -> "Find in Files..."
+## you will find you don't need this plug-in :(
+
+
+
+
 # Search In Project for Sublime Text3 v1.0
+
 ###A plugin for [Sublime Text 3](http://www.sublimetext.com/3).
 ###it fork from [SearchInProject_SublimeText2](https://github.com/leonid-shevtsov/SearchInProject_SublimeText2)
 thanks a lot [Leonid Shevtsov](http://leonid.shevtsov.me) for learning a lot from you
